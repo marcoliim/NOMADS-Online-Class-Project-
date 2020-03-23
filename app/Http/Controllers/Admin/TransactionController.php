@@ -62,7 +62,7 @@ class TransactionController extends Controller
     {
         $item = Transaction::with([
             'details', 'travel_package', 'user'
-        ])->findorFail($id);
+        ])->findOrFail($id);
 
         return view('pages.admin.transaction.detail',[
             'item' => $item
@@ -77,7 +77,7 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        $item = Transaction::findorFail($id);
+        $item = Transaction::findOrFail($id);
 
         return view('pages.admin.transaction.edit',[
             'item' => $item
@@ -96,7 +96,7 @@ class TransactionController extends Controller
         $data = $request->all();
         $data['slug'] = Str::slug($request->title);
 
-        $item=Transaction::findorFail($id);
+        $item=Transaction::findOrFail($id);
 
         $item->update($data);
 

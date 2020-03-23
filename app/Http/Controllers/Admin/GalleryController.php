@@ -75,7 +75,7 @@ class GalleryController extends Controller
      */
     public function edit($id)
     {
-        $item = Gallery::findorFail($id);
+        $item = Gallery::findOrFail($id);
         $travel_packages = TravelPackage::all();
 
         return view('pages.admin.gallery.edit',[
@@ -98,7 +98,7 @@ class GalleryController extends Controller
             'assets/gallery', 'public'
         );
 
-        $item=Gallery::findorFail($id);
+        $item=Gallery::findOrFail($id);
 
         $item->update($data);
 
