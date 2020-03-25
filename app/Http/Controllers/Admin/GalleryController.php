@@ -9,7 +9,6 @@ use App\TravelPackage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-
 class GalleryController extends Controller
 {
     /**
@@ -51,7 +50,7 @@ class GalleryController extends Controller
         $data['image'] = $request->file('image')->store(
             'assets/gallery', 'public'
         );
-
+        
         Gallery::create($data);
         return redirect()->route('gallery.index');
     }
@@ -98,7 +97,7 @@ class GalleryController extends Controller
             'assets/gallery', 'public'
         );
 
-        $item=Gallery::findOrFail($id);
+        $item = Gallery::findOrFail($id);
 
         $item->update($data);
 
