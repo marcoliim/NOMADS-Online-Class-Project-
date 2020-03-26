@@ -24,107 +24,72 @@
         <div class="row">
           <div class="col-lg-8 pl-lg-0">
             <div class="card card-details">
-              <h1>Everest, Himalaya</h1>
-              <p>Republic of Nepal</p>
+              <h1>{{ $item->title }}</h1>
+              <p>
+                {{ $item->location }}
+              </p>
+
+              @if ($item->galleries->count())
               <div class="gallery">
                 <div class="xzoom-container">
                   <img
-                    src="frontend/images/pic-details.jpg"
+                    src="{{ Storage::url($item->galleries->first()->image ) }}"
                     class="xzoom"
                     id="xzoom-default"
-                    xoriginal="frontend/images/pic-details.jpg"
+                    xoriginal="{{ Storage::url($item->galleries->first()->image ) }}"
                   />
                 </div>
                 <div class="xzoom-thumbs">
-                  <a href="frontend/images/pic-details.jpg">
+                  @foreach ($item->galleries as $gallery)
+                  <a href="{{ Storage:: url($gallery->image) }}">
                     <img
-                      src="frontend/images/pic-details.jpg"
+                      src="{{ Storage:: url($gallery->image) }}"
                       class="xzoom-gallery"
                       width="128"
-                      xpreview="frontend/images/pic-details.jpg"
+                      xpreview="{{ Storage:: url($gallery->image) }}"
                     />
                   </a>
-                  <a href="frontend/images/pic-details-2@2x.jpg">
-                    <img
-                      src="frontend/images/pic-details-2@2x.jpg"
-                      class="xzoom-gallery"
-                      width="128"
-                      xpreview="frontend/images/pic-details-2@2x.jpg"
-                    />
-                  </a>
-                  <a href="frontend/images/pic-details-3@2x.jpg">
-                    <img
-                      src="frontend/images/pic-details-3@2x.jpg"
-                      class="xzoom-gallery"
-                      width="128"
-                      xpreview="frontend/images/pic-details-3@2x.jpg"
-                    />
-                  </a>
-                  <a href="frontend/images/pic-details-4@2x.jpg">
-                    <img
-                      src="frontend/images/pic-details-4@2x.jpg"
-                      class="xzoom-gallery"
-                      width="128"
-                      xpreview="frontend/images/pic-details-4@2x.jpg"
-                    />
-                  </a>
-                  <a href="frontend/images/pic-details-5@2x.jpg">
-                    <img
-                      src="frontend/images/pic-details-5@2x.jpg"
-                      class="xzoom-gallery"
-                      width="128"
-                      xpreview="frontend/images/pic-details-5@2x.jpg"
-                    />
-                  </a>
+                  @endforeach
                 </div>
-              </div>
+              </div>      
+              @endif
+
               <h2>About Place</h2>
               <p>
-                Mount Everest is Earth's highest mountain above sea level,
-                located in the Mahalangur Himal sub-range of the Himalayas in
-                Province No. 1 of eastern Nepal. Situated at a distance of 160
-                km northeast to Kathmandu and 174 km northwest to the
-                provincial capital of Biratnagar, the international border
-                between Nepal (Province No. 1) and China (Tibet Autonomous
-                Region) runs across its summit point.
-              </p>
-              <p>
-                The current official elevation of 8,848 m, recognised by China
-                and Nepal, was established by a 1955 Indian survey and
-                subsequently confirmed by a Chinese survey in 1975.
+                {{ $item->about }}
               </p>
               <div class="features row">
                 <div class="col-md-4">
                   <img
-                    src="frontend/images/ic_event.png"
+                    src="{{ url('frontend/images/ic_event.png') }}"
                     alt=""
                     class="features-image"
                   />
                   <div class="description">
                     <h3>Featured Event</h3>
-                    <p>Camping, Hiking</p>
+                    <p>{{ $item->featured_event }}</p>
                   </div>
                 </div>
                 <div class="col-md-4 border-left">
                   <img
-                    src="frontend/images/ic_language.png"
+                    src="{{ url('frontend/images/ic_language.png') }}"
                     alt=""
                     class="features-image"
                   />
                   <div class="description">
                     <h3>Language</h3>
-                    <p>Nepali</p>
+                    <p>{{ $item->language }}</p>
                   </div>
                 </div>
                 <div class="col-md-4 border-left">
                   <img
-                    src="frontend/images/ic_food.png"
+                    src="{{ url('frontend/images/ic_food.png') }}"
                     alt=""
                     class="features-image"
                   />
                   <div class="description">
                     <h3>Foods</h3>
-                    <p>Local Foods</p>
+                    <p>{{ $item->foods }}</p>
                   </div>
                 </div>
               </div>
@@ -135,27 +100,27 @@
               <h2>Members are going</h2>
               <div class="members my-2">
                 <img
-                  src="frontend/images/member-1.png"
+                  src="{{ url('frontend/images/member-1.png') }}"
                   class="member-image mr-1"
                 />
                 <img
-                  src="frontend/images/member-2.png"
+                  src="{{ url('frontend/images/member-2.png') }}"
                   class="member-image mr-1"
                 />
                 <img
-                  src="frontend/images/member-3.png"
+                  src="{{ url('frontend/images/member-3.png') }}"
                   class="member-image mr-1"
                 />
                 <img
-                  src="frontend/images/member-4.png"
+                  src="{{ url('frontend/images/member-4.png') }}"
                   class="member-image mr-1"
                 />
                 <img
-                  src="frontend/images/member-5.png"
+                  src="{{ url('frontend/images/member-5.png') }}"
                   class="member-image mr-1"
                 />
                 <img
-                  src="frontend/images/member-info.png"
+                  src="{{ url('frontend/images/member-info.png') }}"
                   class="member-image mr-1"
                 />
               </div>
@@ -164,29 +129,40 @@
               <table class="trip-information">
                 <tr>
                   <th width="50%">Date of Departure</th>
-                  <td width="50%" class="text-right">22 Aug, 2020</td>
+                  <td width="50%" class="text-right">
+                    {{ \Carbon\Carbon::create($item->date_of_departure)->format('F n, Y') }}
+                  </td>
                 </tr>
                 <tr>
                   <th width="50%">Trip Duration</th>
-                  <td width="50%" class="text-right">10D 9N</td>
+                <td width="50%" class="text-right">{{ $item->duration }}</td>
                 </tr>
                 <tr>
                   <th width="50%">Type of Trip</th>
-                  <td width="50%" class="text-right">Open Trip</td>
+                  <td width="50%" class="text-right">{{ $item->type }}</td>
                 </tr>
                 <tr>
                   <th width="50%">Price</th>
-                  <td width="50%" class="text-right">$1200,00/person</td>
+                  <td width="50%" class="text-right">${{ $item->price }},00/person</td>
                 </tr>
               </table>
             </div>
             <div class="join-container">
-              <a
-                href="{{ route('checkout') }}"
-                class="btn btn-block btn-join-now mt-3 py-2"
-              >
-                Join Trip
-              </a>
+             @auth
+              <form action="{{ route('checkout_process', $item->id) }}" method="POST">
+                @csrf
+                   <button class="btn btn-block btn-join-now mt-3 py-2" type="submit">
+                     Join Now
+                   </button>
+                 </form>
+             @endauth
+             @guest
+             <a
+             href="{{ route('login') }}"
+             class="btn btn-block btn-join-now mt-3 py-2">
+                Login or Register to Join
+           </a>
+             @endguest
             </div>
           </div>
         </div>
